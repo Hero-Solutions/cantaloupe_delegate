@@ -89,33 +89,45 @@ class CustomDelegate
   #
   def authorize(options = {})
 
-    # Uses the Imagehub authenticator, requires local Imagehub Installation.
-    # See https://github.com/kmska/Imagehub
-    # First, check if the user is already authenticated
-    uri = URI('https://imagehub.kmska.be/imagehub/authcheck')
-    req = Net::HTTP::Get.new(uri)
-    response = Net::HTTP.start(
-            uri.host, uri.port,
-            :use_ssl => uri.scheme == 'https', 
-            :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
-      # Pass the SAML cookies (if any) to the authenticator
-      req['Cookie'] = context['cookies']['Cookie']
-      https.request(req)
-    end
+    # Determine if the URI contains the keyword 'private', indicating the user needs to authenticate first
+    request_uri = context['request_uri']
+    uri = URI.parse(request_uri)
+    host_index = request_uri.index(uri.host) + uri.host.length
+    path = request_uri[host_index..request_uri.length - 1]
 
-    # If the user is not (yet) authenticated, send them to the Imagehub authenticator to log in
-    if response.code == '302'
-      {
-        'status_code' => 302,
-        'location' => 'https://imagehub.kmska.be/imagehub/authenticate?url=' + URI::encode(context['request_uri'])
-      }
-    # If the user is already authenticated, allow access to the image
-    elsif response.code == '200'
+    private_index = path.index('private')
+    puts private_index
+    if private_index.nil?
       true
-    # If any other response code is returned, disallow access to the image
     else
-      false
+      # Uses the Imagehub authenticator, requires local Imagehub Installation.
+      # See https://github.com/kmska/Imagehub
+
+      # First, check if the user is already authenticated
+      uri = URI('https://imagehub.kmska.be/imagehub/authcheck')
+      req = Net::HTTP::Get.new(uri)
+      response = Net::HTTP.start(
+              uri.host, uri.port,
+              :use_ssl => uri.scheme == 'https', 
+              :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
+        # Pass the SAML cookies (if any) to the authenticator
+        req['Cookie'] = context['cookies']['Cookie']
+        https.request(req)
+      end
+
+      # If the user is not (yet) authenticated, send them to the Imagehub authenticator to log in
+      if response.code == '302'
+        {
+          'status_code' => 302,
+          'location' => 'https://imagehub.kmska.be/imagehub/authenticate?url=' + URI::encode(context['request_uri'])
+        }
+      # If the user is already authenticated, allow access to the image
+      elsif response.code == '200'
+        true
+      # If any other response code is returned, disallow access to the image
+      else
+        false
+      end
     end
   end
-
 end
