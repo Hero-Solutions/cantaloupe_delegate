@@ -16,3 +16,5 @@ Cantaloupe comes bundled with a sample delegate scrips ``delegates.rb.sample``, 
 In order to use the authentication in this project, you need to copy-paste the complete ``delegates.rb`` into your cantaloupe installation folder or copy-paste the imports. If you are already using the delegate script for other purposes, then you can copy-paste the imports, the ``@@private_keyword``, ``@@authcheck_url`` and ``@@authenticator_url`` values and the ``authenticate`` method from the delegates.rb file in this project into your delegate script.
 
 You also need to set ``delegate_script.enabled = true`` and ``delegate_script.pathname = delegates.rb`` (or whatever your own delegate script is called) in cantaloupe.properties.
+
+You can configure the authcheck URL (the URL that is used to do an initial check to see if the user is already authenticated), the URL of the authenticator (must be able to accept the request uri as parameter) and the keyword used to identify which images need to be authenticated. All these configurable settings are found near the top of the delegate script.
