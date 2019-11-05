@@ -10,19 +10,19 @@ class CustomDelegate
   # Configuration of the authorize() method
 
   # The keyword that determines if a user needs to authenticate in order to access a file
-  @@private_keyword = 'private'
+  $private_keyword = 'private'
 
   # The URL that will be called to check if this user is already authenticated
   # All request cookies will be passed to this URL
   # If this URL returns a 200 response code, serve the image
   # If it returns a 302 response code, the user needs to authenticate
   # Any other response codes than 200 or 302 will result in the user not being allowed to access the image
-  @@authcheck_url = 'https://imagehub.kmska.be/imagehub/authcheck'
+  $authcheck_url = 'https://imagehub.kmska.be/imagehub/authcheck'
 
   # URL where to redirect the user if they are not yet authenticated
   # This URL is expected to redirect back to here if authentication was successful
   # The current request_uri will be appended to this URL so it knows where to redirect to
-  @@authenticator_url = 'https://imagehub.kmska.be/imagehub/authenticate?url='
+  $authenticator_url = 'https://imagehub.kmska.be/imagehub/authenticate?url='
 
 
   ##
@@ -47,8 +47,7 @@ class CustomDelegate
     host_index = request_uri.index(uri.host) + uri.host.length
     path = request_uri[host_index..request_uri.length - 1]
 
-    private_index = path.index(@@private_keyword)
-    puts private_index
+    private_index = path.index($private_keyword)
     if private_index.nil?
       true
     else
@@ -56,7 +55,7 @@ class CustomDelegate
       # See https://github.com/kmska/Imagehub
 
       # First, check if the user is already authenticated
-      uri = URI(@@authcheck_url)
+      uri = URI($authcheck_url)
       req = Net::HTTP::Get.new(uri)
       response = Net::HTTP.start(
               uri.host, uri.port,
@@ -71,7 +70,7 @@ class CustomDelegate
       if response.code == '302'
         {
           'status_code' => 302,
-          'location' => @@authenticator_url + URI::encode(context['request_uri'])
+          'location' => $authenticator_url + URI::encode(context['request_uri'])
         }
       # If the user is already authenticated, allow access to the image
       elsif response.code == '200'
