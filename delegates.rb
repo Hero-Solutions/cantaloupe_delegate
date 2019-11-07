@@ -28,7 +28,7 @@ class CustomDelegate
     config = YAML.load_file('delegate_config.yml')
 
     # Allow localhost to access all images (necessary for manifest generation in the imagehub)
-    if context['client_ip'] == '127.0.0.'
+    if context['client_ip'] == '127.0.0.1'
       true
     else
       # Determine if the URI contains the keyword 'private', indicating the user needs to authenticate first
