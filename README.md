@@ -11,28 +11,28 @@ This project requires the following dependencies:
 
 # Usage
 
-First of all, it is of the **utmost importance** that the following value is set to ``true`` in your cantaloupe.properties file, otherwise the authenticate method will not be called when fetching a cached image or info.json **and allow any unauthorized user to access private images that have been cached on the server side**:
+First of all, it is of the **utmost importance** that the following value is set to true in your cantaloupe.properties file, otherwise the authenticate method will not be called when fetching a cached image or info.json **and allow any unauthorized user to access private images that have been cached on the server side**:
 ```
 cache.server.resolve_first = true
 ```
 
-Cantaloupe comes bundled with a sample delegate script ``delegates.rb.sample``, containing several delegate methods. The delegates.rb script in this project overrides the ``authenticate`` method.
+Cantaloupe comes bundled with a sample delegate script delegates.rb.sample, containing several delegate methods. The delegates.rb script in this project overrides the authenticate method.
 
-In order to use the authentication in this project, you need to copy-paste the ``delegates.rb`` to a location of your choosing (for example into your cantaloupe installation folder) and set the following properties inside your ``cantaloupe.properties`` file:
+In order to use the authentication in this project, you need to copy-paste the delegates.rb to a location of your choosing (for example into your cantaloupe installation folder) and set the following properties inside your cantaloupe.properties file:
 ```
 delegate_script.enabled = true
 delegate_script.pathname = delegates.rb
 ```
-The ``delegate_script.pathname`` can be a relative or an absolute path. You can freely alter the name or location of your delegate script, as long as you correctly reference it in your ``cantaloupe.properties`` file.
+The delegate_script.pathname can be a relative or an absolute path. You can freely alter the name or location of your delegate script, as long as you correctly reference it in your cantaloupe.properties file.
 
-If you are already using a delegate script for other purposes, you can copy-paste the imports and the ``authenticate`` method from the delegates.rb file in this project into your own delegate script.
+If you are already using a delegate script for other purposes, you can copy-paste the imports and the authenticate method from the delegates.rb file in this project into your own delegate script.
 
-You also need to create a file called ``delegate_config.yml`` and put it in the same folder as the ``delegates.rb`` file. You can freely alter the name or location of the configuration file, as long as you properly alter the following line in your ``delegates.rb`` script:
+You also need to create a file called delegate_config.yml and put it in the same folder as the delegates.rb file. You can freely alter the name or location of the configuration file, as long as you properly alter the following line in your delegates.rb script:
 ```
 config = YAML.load_file('delegate_config.yml')
 ```
 
-Copy-paste the following lines into ypur ``delegate_config.yml`` and alter the values as needed for your particular setup:
+Copy-paste the following lines into ypur delegate_config.yml and alter the values as needed for your particular setup:
 ```
 ---
   # The keyword that the delegate script will look for in a request URL,
