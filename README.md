@@ -16,7 +16,12 @@ First of all, it is of the **utmost importance** that the following value is set
 
 Cantaloupe comes bundled with a sample delegate script ``delegates.rb.sample``, containing several delegate methods. The delegates.rb script in this project overrides the ``authenticate`` method.
 
-In order to use the authentication in this project, you need to copy-paste the ``delegates.rb`` to a location of your choosing (for example into your cantaloupe installation folder) and set ``delegate_script.enabled = true`` and ``delegate_script.pathname = delegates.rb`` (or whatever your own delegate script is called) in cantaloupe.properties. The ``delegate_script.pathname`` can be a relative or an absolute path.
+In order to use the authentication in this project, you need to copy-paste the ``delegates.rb`` to a location of your choosing (for example into your cantaloupe installation folder) and set the following properties inside your ``cantaloupe.properties`` file:
+```
+delegate_script.enabled = true
+delegate_script.pathname = delegates.rb
+```
+The ``delegate_script.pathname`` can be a relative or an absolute path. You can freely alter the name or location of your delegate script, as long as you correctly reference it in your ``cantaloupe.properties`` file.
 
 If you are already using a delegate script for other purposes, you can copy-paste the imports and the ``authenticate`` method from the delegates.rb file in this project into your own delegate script.
 
