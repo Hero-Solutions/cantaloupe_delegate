@@ -25,7 +25,10 @@ The ``delegate_script.pathname`` can be a relative or an absolute path. You can 
 
 If you are already using a delegate script for other purposes, you can copy-paste the imports and the ``authenticate`` method from the delegates.rb file in this project into your own delegate script.
 
-You also need to create a file called ``delegate_config.yml`` and put it in the same folder as the ``delegates.rb`` file. If you wish to name the config file diffently or place it in a different location, you need to alter the line ``config = YAML.load_file('delegate_config.yml')`` in ``delegates.rb`` to point it to the correct config file.
+You also need to create a file called ``delegate_config.yml`` and put it in the same folder as the ``delegates.rb`` file. You can freely alter the name or location of the configuration file, as long as you properly alter the following line in your ``delegates.rb`` script:
+```
+config = YAML.load_file('delegate_config.yml')
+```
 
 Copy-paste the following into the ``delegate_config.yml`` and alter these values as needed for your particular setup:
 ```
