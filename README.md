@@ -12,7 +12,9 @@ This project requires the following dependencies:
 # Usage
 
 First of all, it is of the **utmost importance** that the following value is set to ``true`` in your cantaloupe.properties file, otherwise the authenticate method will not be called when fetching a cached image or info.json **and allow any unauthorized user to access private images that have been cached on the server side**:
-``cache.server.resolve_first = true``
+```
+cache.server.resolve_first = true
+```
 
 Cantaloupe comes bundled with a sample delegate script ``delegates.rb.sample``, containing several delegate methods. The delegates.rb script in this project overrides the ``authenticate`` method.
 
