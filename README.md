@@ -11,7 +11,7 @@ This project requires the following dependencies:
 
 # Usage
 
-First of all, it is of the **utmost importance** that the following value is set to true in your cantaloupe.properties file, otherwise the authenticate method will not be called when fetching a cached image or info.json and allow any unauthorized user to access cached private images:
+First of all, it is of the **utmost importance** that the following value is set to ``true`` in your cantaloupe.properties file, otherwise the authenticate method will not be called when fetching a cached image or info.json **and allow any unauthorized user to access private images inside the server cache**:
 ``cache.server.resolve_first = true``
 
 Cantaloupe comes bundled with a sample delegate script ``delegates.rb.sample``, containing several delegate methods. The delegates.rb script in this project overrides the ``authenticate`` method.
@@ -34,7 +34,7 @@ Copy-paste the following into the ``delegate_config.yml`` and alter these values
   # All cookies from the initial request will be passed along to this URL.
   # If the URL returns a 200 response code, all is OK, serve the image.
   # If it returns a 302 response code, the user needs to authenticate first.
-  # Any other response codes than 200 or 302 will result in the user not being allowed to access to the image.
+  # Any other response codes than 200 or 302 will result in the user not being granted access.
   authcheck_url: 'https://imagehub.kmska.local/authcheck'
 
   # URL where to redirect the user if they are not yet authenticated.
