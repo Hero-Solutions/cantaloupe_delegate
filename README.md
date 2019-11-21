@@ -30,7 +30,7 @@ You also need to create a file called ``delegate_config.yml`` and put it in the 
 config = YAML.load_file('delegate_config.yml')
 ```
 
-Copy-paste the following into the ``delegate_config.yml`` and alter these values as needed for your particular setup:
+Copy-paste the following lines into ypur ``delegate_config.yml`` and alter the values as needed for your particular setup:
 ```
 ---
   # The keyword that the delegate script will look for in a request URL,
@@ -56,5 +56,3 @@ Copy-paste the following into the ``delegate_config.yml`` and alter these values
     - 127.0.0.1
 
 ```
-
-delegate_config.yml
