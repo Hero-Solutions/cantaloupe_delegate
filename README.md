@@ -45,12 +45,12 @@ Copy-paste the following lines into ypur delegate_config.yml and alter the value
   # If the URL returns a 200 response code, all is OK, serve the image.
   # If it returns a 302 response code, the user needs to authenticate first.
   # Any other response codes than 200 or 302 will result in the user not being granted access.
-  authcheck_url: 'https://imagehub.kmska.local/authcheck'
+  authcheck_url: 'https://<imagehub-server>/authcheck'
 
   # URL where to redirect the user if they are not yet authenticated.
   # This URL is expected to redirect back to here if authentication was successful.
   # The current request_uri will be appended to this URL so it knows where to redirect to.
-  authenticator_url: 'https://imagehub.kmska.local/authenticate?url='
+  authenticator_url: 'https://<imagehub-server>/authenticate?url='
 
   # Any requests from these addresses will automatically be allowed.
   # This is needed for manifest generation inside an Imagehub.
