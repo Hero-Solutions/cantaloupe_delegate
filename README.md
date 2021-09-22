@@ -16,6 +16,11 @@ First of all, it is of the **utmost importance** that the following value is set
 cache.server.resolve_first = true
 ```
 
+It is also recommended to use another character than '/' for subfolders. To do this, set the following value in the cantaloupe config file:
+```
+slash_substitute = @
+```
+ 
 Cantaloupe comes bundled with a sample delegate script delegates.rb.sample, containing several delegate methods. The delegates.rb script in this project overrides the authenticate method.
 
 In order to use the authentication in this project, you need to copy-paste the delegates.rb to a location of your choosing (for example into your cantaloupe installation folder) and set the following properties inside your cantaloupe.properties file:

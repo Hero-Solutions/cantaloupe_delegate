@@ -22,7 +22,7 @@ class CustomDelegate
   # @param options [Hash] Empty hash.
   # @return [Boolean,Hash<String,Object>] See above.
   #
-  def authorize(options = {})
+  def pre_authorize(options = {})
 
     # Load configuration
     config = YAML.load_file('delegate_config.yml')
