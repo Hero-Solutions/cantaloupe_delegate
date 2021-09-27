@@ -72,4 +72,9 @@ class CustomDelegate
       end
     end
   end
+
+  def authorize(options = {})
+    true
+  end
+
 end
