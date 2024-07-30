@@ -47,12 +47,16 @@ class CustomDelegate
         # First, check if the user is already authenticated
         uri = URI(config['authcheck_url'])
         req = Net::HTTP::Get.new(uri)
+
+        cookies_hash = context['cookies']
+        cookies = cookies_hash.map { |k, v| "#{k}=#{v}" }.join('; ')
+
         response = Net::HTTP.start(
                 uri.host, uri.port,
                 :use_ssl => uri.scheme == 'https',
                 :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
           # Pass the SAML cookies (if any) to the authenticator
-          req['Cookie'] = context['cookies']['Cookie']
+          req['Cookie'] = cookies
           https.request(req)
         end
 
@@ -75,6 +79,28 @@ class CustomDelegate
 
   def authorize(options = {})
     true
+  end
+
+  def metadata(options = {})
+  end
+
+  def redactions(options = {})
+    []
+  end
+
+  def extra_iiif2_information_response_keys(options = {})
+    extra_information_response_keys
+  end
+
+  def extra_iiif3_information_response_keys(options = {})
+    extra_information_response_keys
+  end
+
+  def extra_information_response_keys
+    {
+      'exif' => context.dig('metadata', 'exif'),
+      'iptc' => context.dig('metadata', 'iptc')
+    }
   end
 
 end
